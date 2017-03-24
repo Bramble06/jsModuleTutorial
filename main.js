@@ -41,6 +41,8 @@
 
 people.init();
 
+alert('Hello!');
+
 })()
 
 
