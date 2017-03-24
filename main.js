@@ -43,6 +43,8 @@ people.init();
 
 alert('Hello!');
 
+
+alert('Testing');
 })()
 
 
