@@ -1,57 +1,46 @@
+var people = (function(){
+    var people = ['Devon', 'Alisa'];
 
-// revealing module pattern
-(function(){
-
-  var people = ['Devon', 'Alisa'];
-
-    //cache dom
+    //cache DOM
     var $el = $('#peopleModule');
-    var $button = this.$el.find('button');
-    var $input = this.$el.find('input');
-    var $ul = this.$el.find('ul');
-    var template = this.$el.find('#people-template').html();
+    var $button = $el.find('button');
+    var $input = $el.find('input');
+    var $ul = $el.find('ul');
+    var template = $el.find('#people-template').html();
 
     //bind events
-    this.$button.on('click', this.addPerson.bind(this));
-    this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+    $button.on('click', addPerson);
+    $ul.delegate('i.del', 'click', deletePerson);
 
     _render();
 
-    _render:function(){
-
+    function _render() {
        $ul.html(Mustache.render(template, {people: people}));
-
     }
 
-    addPerson:function(event){
-
-      var name = (typeof value === "string") ? value : this.$input.val()
-
-      this.people.push(name;
-      this._render();
-      this.$input.val('');
-
+    function addPerson(value) {
+        var name = (typeof value === "string") ? value : $input.val();
+        people.push(name);
+        _render();
+        $input.val('');
     }
 
-    deletePerson:function(){
-
-      if(typeof event ==="number"){
-        i =event
-      }else{
-        var $remove = $(event.target).closest('li');
-        i = this.$ul.find('li').index($remove);
-      }
-      this.people.splice(i, 1);
-      this._render();
-
+    function deletePerson(event) {
+        var i;
+        if (typeof event === "number") {
+            i = event;
+        } else {
+            var $remove = $(event.target).closest('li');
+            i = $ul.find('li').index($remove);
+        }
+        people.splice(i, 1);
+        _render();
     }
 
-  };
-
-return{
-  addPerson:addPerson,
-  deletePerson:deletePerson
-}
+    return {
+        addPerson: addPerson,
+        deletePerson: deletePerson
+    };
 
 })();
 
