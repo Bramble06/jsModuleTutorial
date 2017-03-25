@@ -1,54 +1,59 @@
 
+// revealing module pattern
 (function(){
 
-  var people = {
-    people: ['Devon', 'Alisa'],
-    init:function(){
-      this.cacheDom();
-      this.bindEvents();
-      this.render();
-    },
-    cacheDom:function(){
-      this.$el = $('#peopleModule');
-      this.$button = this.$el.find('button');
-      this.$input = this.$el.find('input');
-      this.$ul = this.$el.find('ul');
-      this.template = this.$el.find('#people-template').html();
-    },
-    bindEvents:function(){
-      this.$button.on('click', this.addPerson.bind(this));
-      this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
-    },
-    render:function(){
-      var data = {
-           people: this.people,
-       };
-       this.$ul.html(Mustache.render(this.template, data));
-    },
-    addPerson:function(){
-      this.people.push(this.$input.val());
-      this.render();
-      this.$input.val('');
-    },
-    deletePerson:function(){
-      var $remove = $(event.target).closest('li');
-      var i = this.$ul.find('li').index($remove);
+  var people = ['Devon', 'Alisa'];
 
-      this.people.splice(i, 1);
-      this.render();
+    //cache dom
+    var $el = $('#peopleModule');
+    var $button = this.$el.find('button');
+    var $input = this.$el.find('input');
+    var $ul = this.$el.find('ul');
+    var template = this.$el.find('#people-template').html();
+
+    //bind events
+    this.$button.on('click', this.addPerson.bind(this));
+    this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+
+    _render();
+
+    _render:function(){
+
+       $ul.html(Mustache.render(template, {people: people}));
+
     }
+
+    addPerson:function(event){
+
+      var name = (typeof value === "string") ? value : this.$input.val()
+
+      this.people.push(name;
+      this._render();
+      this.$input.val('');
+
+    }
+
+    deletePerson:function(){
+
+      if(typeof event ==="number"){
+        i =event
+      }else{
+        var $remove = $(event.target).closest('li');
+        i = this.$ul.find('li').index($remove);
+      }
+      this.people.splice(i, 1);
+      this._render();
+
+    }
+
   };
 
-people.init();
+return{
+  addPerson:addPerson,
+  deletePerson:deletePerson
+}
 
-alert('Hello!');
-
-
-alert('Testing');
-})()
-
-
-
+})();
 
 // $(function() {
 //     console.log( "ready!" );
